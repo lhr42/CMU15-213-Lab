@@ -19,14 +19,28 @@ int is_transpose(int M, int N, int A[N][M], int B[M][N]);
  *     searches for that string to identify the transpose function to
  *     be graded. 
  */
-transpose_32x32(int M, int N, int A[N][M], int B[M][N]){
+void transpose_32x32(int M, int N, int A[N][M], int B[M][N]){
     int B1 = 8;
     for(int i = 0; i < 32; i += B1)
         for(int j = 0; j < 32; j += B1)
-            for(int i1 = 0; i1 < B1; i1++)
-                for(int j1 = 0; j1 < B1; j1++){
-                    B[j + j1][i + i1] = A[i + i1][j + j1];
-                }
+            for(int i1 = 0; i1 < B1; i1++){
+                int a0 = A[i + i1][j];
+                int a1 = A[i + i1][j + 1];
+                int a2 = A[i + i1][j + 2];
+                int a3 = A[i + i1][j + 3];
+                int a4 = A[i + i1][j + 4];
+                int a5 = A[i + i1][j + 5];
+                int a6 = A[i + i1][j + 6];
+                int a7 = A[i + i1][j + 7];
+                B[j][i + i1] = a0;  
+                B[j + 1][i + i1] = a1;
+                B[j + 2][i + i1] = a2;
+                B[j + 3][i + i1] = a3;
+                B[j + 4][i + i1] = a4;
+                B[j + 5][i + i1] = a5;
+                B[j + 6][i + i1] = a6;
+                B[j + 7][i + i1] = a7;
+            }
 }
 char transpose_submit_desc[] = "Transpose submission";
 void transpose_submit(int M, int N, int A[N][M], int B[M][N])
